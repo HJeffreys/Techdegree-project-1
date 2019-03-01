@@ -3,33 +3,57 @@ Python Web Development Techdegree
 Project 1 - Number Guessing Game
 --------------------------------
 
-For this first project we will be using Workspaces. 
+For this first project we will be using Workspaces.
 
 NOTE: If you strongly prefer to work locally on your own computer, you can totally do that by clicking: File -> Download Workspace in the file menu after you fork the snapshot of this workspace.
 
 """
 
-import random
-
+name = input("Welcome! What's your name?: ")
+scores = []
 
 def start_game():
-    """Psuedo-code Hints
-    
-    When the program starts, we want to:
-    ------------------------------------
-    1. Display an intro/welcome message to the player.
-    2. Store a random number as the answer/solution.
-    3. Continuously prompt the player for a guess.
-      a. If the guess greater than the solution, display to the player "It's lower".
-      b. If the guess is less than the solution, display to the player "It's higher".
-    
-    4. Once the guess is correct, stop looping, inform the user they "Got it"
-         and show how many attempts it took them to get the correct number.
-    5. Let the player know the game is ending, or something that indicates the game is over.
-    
-    ( You can add more features/enhancements if you'd like to. )
-    """
-    # write your code inside this function.
+    def high_score(x):
+        high = x[0]
+        for i in x[0:]:
+            if i < high:
+                high = i
+        return high
+    import random
+    num = random.randint(1,10)
+    attempts = int()
+    while True:
+        num_guess = input('Guess a number between 1-10 {}: '.format(name))
+        try:
+            num_guess = int(num_guess)
+            if num_guess > 10:
+                raise ValueError ('Your number must be between 1 - 10!')
+            if num_guess < 1:
+                raise ValueError ('Your number must be between 1 - 10!')
+        except ValueError as err:
+            print ('Ooops! We ran into an issue. {}. Please try again:'.format(err))
+        else:
+            if num_guess == num:
+                attempts += 1
+                print ('Got it! It took you {} attempts!'.format(attempts))
+                scores.append(attempts)
+                print ('The high score is - ', high_score(scores))
+                again = input('\nWould you like to play again? Y/N: ')
+                if again.lower() == 'y':
+                    return start_game()
+                elif again.lower() == 'n':
+                    print ('Thank you for playing {}!'.format(name))
+                    break
+            if num_guess < num:
+                attempts += 1
+                print ("It's higher!: ")
+                continue
+            if num_guess > num:
+                attempts += 1
+                print ("It's lower!: ")
+                continue
+
+start_game()
 
 
 if __name__ == '__main__':
