@@ -9,7 +9,6 @@ NOTE: If you strongly prefer to work locally on your own computer, you can total
 
 """
 
-
 name = input("Welcome! What's your name?: ")
 scores = []
 
